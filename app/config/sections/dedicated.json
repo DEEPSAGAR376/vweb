@@ -2,9 +2,9 @@
   
   "planTypes": [
     {
-      "id": "ryzen-7",
+      "id": "ryzen-9",
       "name": "AMD Ryzen 7",
-      "displayName": "AMD Ryzen 7",
+      "displayName": "AMD Ryzen7",
       "image": "/cpu/ryzen7.png"
     },
     {
@@ -18,7 +18,7 @@
     {
       "id": "singapore",
       "name": "Singapore",
-      "flag": "/flags/singapore.png",
+      "flag": "/flags/india.png",
       "displayName": "Singapore",
       "cpu": "AMD Ryzen 9",
       "availableCpus": ["ryzen-9"]
@@ -49,7 +49,7 @@
         "cpu": "4 Cores",
         "cpuDetail": "AMD Ryzen 7",
         "ram": "16 GB",
-        "ramDetail": "DDR4 RAM",
+        "ramDetail": "DDR5 RAM",
         "storage": "500 GB",
         "storageDetail": "NVMe SSD",
         "bandwidth": "Unlimited",
