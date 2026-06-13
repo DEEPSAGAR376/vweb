@@ -1,0 +1,74 @@
+{
+  "mainNavigation": [
+    {
+      "name": "Games",
+      "href": "/games",
+      "icon": "Gamepad2",
+      "hasDropdown": true,
+      "dropdownType": "games"
+    },
+    {
+      "name": "Cloud",
+      "href": "/vps",
+      "icon": "Cloud",
+      "hasDropdown": false
+    },
+    {
+      "name": "Dedicated",
+      "href": "/dedicated",
+      "icon": "Server",
+      "hasDropdown": false
+    },
+     {
+      "name": "Discord Bot",
+      "href": "/discord",
+      "icon": "FaDiscord",
+      "hasDropdown": false
+    },
+     {
+      "name": "WebHosting",
+      "href": "/webhosting",
+      "icon": "GrServerCluster",
+      "hasDropdown": false
+    },
+    {
+      "name": "Legal",
+      "href": "/terms-of-services",
+      "icon": "FileText",
+      "hasDropdown": true,
+      "dropdownType": "legal",
+      "dropdownItems": [
+        {
+          "name": "Terms of Service",
+          "href": "/terms-of-services",
+          "description": "Our service agreement and terms"
+        },
+        {
+          "name": "Privacy Policy",
+          "href": "/privacy-policy",
+          "description": "How we protect your privacy"
+        }
+      ]
+    }
+  ],
+  "socialLinks": [
+    {
+      "name": "Discord",
+      "href": "#",
+      "icon": "discord"
+    }
+  ],
+  "clientSpace": {
+    "name": "CLIENT SPACE",
+    "href": "https://builtbybit.com/resources/all-in-one-hosting-template-dezernova.69325/",
+    "icon": "User"
+  },
+  "banner": {
+    "show": true,
+    "text": "Limited Time Offer: Save 10% on Game Servers",
+    "couponCode": "WELCOME",
+    "useThemeColor": true,
+    "backgroundColor": "bg-blue-400",
+    "fallbackColor": "bg-blue-400"
+  }
+}
