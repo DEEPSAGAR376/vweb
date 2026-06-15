@@ -1,57 +1,72 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { createHmac, timingSafeEqual } from "crypto";
 
 const CONFIG_DIR = path.join(process.cwd(), "app", "config", "sections");
 
-// Ensure the directory exists
+// Allowed sections — "admin" is intentionally excluded so config cannot be
+// written/read as a section (password is now env-only).
+const ALLOWED_SECTIONS = [
+  "games",
+  "vps",
+  "dedicated",
+  "discord",
+  "webhosting",
+  "navigation",
+] as const;
+
 async function ensureDir() {
   try {
     await fs.mkdir(CONFIG_DIR, { recursive: true });
-  } catch (e) {}
+  } catch {}
 }
 
-async function getAdminPassword(): Promise<string> {
-  if (process.env.ADMIN_PASSWORD) {
-    return process.env.ADMIN_PASSWORD;
-  }
-  const adminFilePath = path.join(CONFIG_DIR, "admin.json");
+// Derive the expected session token from the env password.
+// This mirrors the logic in /api/admin/auth/route.ts.
+function deriveExpectedToken(): string | null {
+  const envPassword = process.env.ADMIN_PASSWORD;
+  if (!envPassword) return null;
+  return createHmac("sha256", envPassword)
+    .update("admin-session-v1")
+    .digest("hex");
+}
+
+// Returns true if the Authorization header carries a valid session token.
+function isAuthorized(request: Request): boolean {
+  const expected = deriveExpectedToken();
+  if (!expected) return false; // No env password → nobody gets in
+
+  const authHeader = request.headers.get("Authorization") || "";
+  const supplied = authHeader.startsWith("Bearer ")
+    ? authHeader.slice(7)
+    : "";
+
+  if (!supplied) return false;
+
   try {
-    const data = await fs.readFile(adminFilePath, "utf-8");
-    const parsed = JSON.parse(data);
-    return parsed.password || "admin123";
-  } catch (e) {
-    // Return default and save it
-    await ensureDir();
-    await fs.writeFile(
-      adminFilePath,
-      JSON.stringify({ password: "admin" }, null, 2),
-      "utf-8"
-    );
-    return "admin";
+    const a = Buffer.from(supplied.padEnd(128));
+    const b = Buffer.from(expected.padEnd(128));
+    return timingSafeEqual(a, b) && supplied === expected;
+  } catch {
+    return false;
   }
 }
 
 export async function GET(request: Request) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const section = searchParams.get("section");
 
   if (!section) {
-    return NextResponse.json({ error: "Missing section parameter" }, { status: 400 });
+    return NextResponse.json({ error: "Missing section parameter." }, { status: 400 });
   }
 
-  // Validate section filename to prevent directory traversal
-  const allowedSections = [
-    "games",
-    "vps",
-    "dedicated",
-    "discord",
-    "webhosting",
-    "navigation",
-    "admin"
-  ];
-  if (!allowedSections.includes(section)) {
-    return NextResponse.json({ error: "Invalid section" }, { status: 400 });
+  if (!ALLOWED_SECTIONS.includes(section as any)) {
+    return NextResponse.json({ error: "Invalid section." }, { status: 400 });
   }
 
   const filePath = path.join(CONFIG_DIR, `${section}.json`);
@@ -59,53 +74,31 @@ export async function GET(request: Request) {
   try {
     const fileContent = await fs.readFile(filePath, "utf-8");
     const data = JSON.parse(fileContent);
-
-    // If requesting admin config, hide password unless authorized
-    if (section === "admin") {
-      const passwordHeader = request.headers.get("x-admin-password");
-      const actualPassword = await getAdminPassword();
-      if (passwordHeader !== actualPassword) {
-        return NextResponse.json({ passwordSet: true }, {
-          headers: { "Cache-Control": "no-store, max-age=0" }
-        });
-      }
-    }
-
     return NextResponse.json(data, {
-      headers: { "Cache-Control": "no-store, max-age=0" }
+      headers: { "Cache-Control": "no-store, max-age=0" },
     });
-  } catch (error) {
-    return NextResponse.json({ error: "Config file not found or invalid" }, { status: 404 });
+  } catch {
+    return NextResponse.json(
+      { error: "Config file not found or invalid." },
+      { status: 404 }
+    );
   }
 }
 
 export async function POST(request: Request) {
+  if (!isAuthorized(request)) {
+    return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
+  }
+
   const { searchParams } = new URL(request.url);
   const section = searchParams.get("section");
 
   if (!section) {
-    return NextResponse.json({ error: "Missing section parameter" }, { status: 400 });
+    return NextResponse.json({ error: "Missing section parameter." }, { status: 400 });
   }
 
-  const allowedSections = [
-    "games",
-    "vps",
-    "dedicated",
-    "discord",
-    "webhosting",
-    "navigation",
-    "admin"
-  ];
-  if (!allowedSections.includes(section)) {
-    return NextResponse.json({ error: "Invalid section" }, { status: 400 });
-  }
-
-  // Verify password
-  const passwordHeader = request.headers.get("x-admin-password");
-  const actualPassword = await getAdminPassword();
-
-  if (passwordHeader !== actualPassword) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!ALLOWED_SECTIONS.includes(section as any)) {
+    return NextResponse.json({ error: "Invalid section." }, { status: 400 });
   }
 
   try {
@@ -115,8 +108,14 @@ export async function POST(request: Request) {
     await ensureDir();
     await fs.writeFile(filePath, JSON.stringify(body, null, 2), "utf-8");
 
-    return NextResponse.json({ success: true, message: `Configuration for ${section} updated successfully.` });
+    return NextResponse.json({
+      success: true,
+      message: `Configuration for ${section} updated successfully.`,
+    });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message || "Failed to update configuration" }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || "Failed to update configuration." },
+      { status: 500 }
+    );
   }
 }

@@ -49,14 +49,36 @@ export default function AdminDashboard() {
   const [selectedDiscordType, setSelectedDiscordType] = useState("");
   const [selectedWebhostType, setSelectedWebhostType] = useState("");
 
-  // Check sessionStorage on load
+  // Check sessionStorage on load — we store the session TOKEN, not the raw password
   useEffect(() => {
-    const storedPass = sessionStorage.getItem("admin_password");
-    if (storedPass) {
-      verifyPassword(storedPass);
+    const storedToken = sessionStorage.getItem("admin_token");
+    if (storedToken) {
+      verifyToken(storedToken);
     }
   }, []);
 
+  // Verify an existing token (e.g. from sessionStorage) by calling a protected endpoint.
+  // We simply try to fetch navigation config — if it returns 401 the token is stale/invalid.
+  const verifyToken = async (token: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/admin/config?section=navigation", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.ok) {
+        setIsAuthenticated(true);
+        loadAllConfigs(token);
+      } else {
+        sessionStorage.removeItem("admin_token");
+      }
+    } catch {
+      sessionStorage.removeItem("admin_token");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Submit the raw password ONCE to get a session token back from the server.
   const verifyPassword = async (passToVerify: string) => {
     setLoading(true);
     setAuthError("");
@@ -64,19 +86,20 @@ export default function AdminDashboard() {
       const res = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: passToVerify })
+        body: JSON.stringify({ password: passToVerify }),
       });
       const data = await res.json();
-      if (res.ok && data.success) {
+      if (res.ok && data.success && data.token) {
+        // Store the TOKEN — never store the raw password in the browser
+        sessionStorage.setItem("admin_token", data.token);
         setIsAuthenticated(true);
-        sessionStorage.setItem("admin_password", passToVerify);
-        loadAllConfigs(passToVerify);
+        loadAllConfigs(data.token);
       } else {
         setAuthError(data.error || "Invalid Password");
-        sessionStorage.removeItem("admin_password");
+        sessionStorage.removeItem("admin_token");
       }
-    } catch (e) {
-      setAuthError("Failed to connect to authentication API");
+    } catch {
+      setAuthError("Failed to connect to the authentication API.");
     } finally {
       setLoading(false);
     }
@@ -85,25 +108,31 @@ export default function AdminDashboard() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!password) {
-      setAuthError("Password cannot be empty");
+      setAuthError("Password cannot be empty.");
       return;
     }
     verifyPassword(password);
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("admin_password");
+    sessionStorage.removeItem("admin_token");
     setIsAuthenticated(false);
     setPassword("");
   };
 
-  const loadAllConfigs = async (authPass: string) => {
+  const loadAllConfigs = async (token: string) => {
     setLoading(true);
     try {
-      const headers = { "x-admin-password": authPass };
-      
+      const headers = { Authorization: `Bearer ${token}` };
+
       const fetchConfig = async (section: string) => {
         const res = await fetch(`/api/admin/config?section=${section}`, { headers });
+        if (res.status === 401) {
+          // Token is invalid — force logout
+          sessionStorage.removeItem("admin_token");
+          setIsAuthenticated(false);
+          throw new Error("Session expired. Please log in again.");
+        }
         if (!res.ok) throw new Error(`Failed to load ${section}`);
         return res.json();
       };
@@ -114,7 +143,7 @@ export default function AdminDashboard() {
         fetchConfig("vps"),
         fetchConfig("dedicated"),
         fetchConfig("discord"),
-        fetchConfig("webhosting")
+        fetchConfig("webhosting"),
       ]);
 
       setNavigationConfig(nav);
@@ -142,7 +171,6 @@ export default function AdminDashboard() {
       if (webhost.planTypes && webhost.planTypes.length > 0) {
         setSelectedWebhostType(webhost.planTypes[0].id);
       }
-
     } catch (error: any) {
       showStatus("error", error.message || "Failed to load configurations");
     } finally {
@@ -152,25 +180,30 @@ export default function AdminDashboard() {
 
   const saveConfig = async (section: string, data: any) => {
     setLoading(true);
-    const authPass = sessionStorage.getItem("admin_password") || "";
+    const token = sessionStorage.getItem("admin_token") || "";
     try {
       const res = await fetch(`/api/admin/config?section=${section}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-admin-password": authPass
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
       const result = await res.json();
+      if (res.status === 401) {
+        sessionStorage.removeItem("admin_token");
+        setIsAuthenticated(false);
+        showStatus("error", "Session expired. Please log in again.");
+        return;
+      }
       if (res.ok && result.success) {
         showStatus("success", `${section} configuration updated successfully!`);
-        // Refresh local copies
-        loadAllConfigs(authPass);
+        loadAllConfigs(token);
       } else {
         showStatus("error", result.error || `Failed to save ${section}`);
       }
-    } catch (e) {
+    } catch {
       showStatus("error", `Connection error when saving ${section}`);
     } finally {
       setLoading(false);
@@ -272,7 +305,7 @@ export default function AdminDashboard() {
             </button>
           </form>
           <div className="mt-6 text-center text-xs text-gray-600">
-            Default password: <code className="bg-gray-950 text-gray-400 px-1 py-0.5 rounded">admin</code>. You can change this in config/sections/admin.json
+            Password is set via <code className="bg-gray-950 text-gray-400 px-1 py-0.5 rounded">ADMIN_PASSWORD</code> in the server&apos;s <code className="bg-gray-950 text-gray-400 px-1 py-0.5 rounded">.env</code> file.
           </div>
         </div>
       </div>
