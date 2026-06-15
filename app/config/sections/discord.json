@@ -28,9 +28,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£3.99",
+        "price": "₹30",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/budget/starter"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "budget-basic",
@@ -44,9 +44,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£5.99",
+        "price": "₹50",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/budget/basic"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "budget-standard",
@@ -60,9 +60,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£9.99",
+        "price": "₹80",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/budget/standard"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "premium": [
@@ -79,9 +79,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£19.99",
+        "price": "₹150",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/premium/pro"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "premium-advanced",
@@ -95,9 +95,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£34.99",
+        "price": "₹250",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/premium/advanced"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "premium-enterprise",
@@ -112,9 +112,9 @@
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
         "uptime": "24/7 Uptime",
-        "price": "£59.99",
+        "price": "₹450",
         "period": "/mo",
-        "orderLink": "https://example.com/order/discord/premium/enterprise"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ]
   }

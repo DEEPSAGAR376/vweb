@@ -2,19 +2,37 @@
 
 import { motion } from "framer-motion"
 import { Server, Cpu, MemoryStick, HardDrive, Wifi, HeartPulse } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import webhostingConfig from "../../config/sections/webhosting.json"
 import type { WebHostingConfig } from "../../types/webhosting"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 
-const config = webhostingConfig as WebHostingConfig
+const globalConfig = webhostingConfig as WebHostingConfig
 
 export default function WebHostingPricingSection() {
   const { selectedCurrency, setSelectedCurrency, convertPrice } = useCurrency()
   const { t } = useLanguage()
+
+  const [activeConfig, setActiveConfig] = useState<WebHostingConfig>(globalConfig)
+  const config = activeConfig
+
   const [selectedPlanType, setSelectedPlanType] = useState(config.planTypes[0].id)
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=webhosting")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.planTypes && data.planTypes.length > 0) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const currentPlans = config.plans[selectedPlanType] || config.plans[config.planTypes[0].id]
 

@@ -1,12 +1,12 @@
 {
   "navbar": {
-    "logo": "/banners/Dezer-Banner.webp",
+    "logo": "/banners/web.webp",
     "brandName": "Rim",
     "brandAccent": "Host"
   },
   "hero": {
     "title": {
-      "suffixColor": "white",
+      "suffixColor": "red",
       "gameNameColor": "blue"
     },
     "games": [
@@ -99,11 +99,6 @@
       {
         "name": "Samsung",
         "src": "/advertisement/samsung.png",
-        "loading": "lazy"
-      },
-      {
-        "name": "DezerX",
-        "src": "/banners/Dezer-Banner.webp",
         "loading": "lazy"
       }
     ]

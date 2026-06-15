@@ -6,40 +6,67 @@ import { Globe } from "@/components/ui/globe";
 
 const locations = [
     {
-        name: "Amsterdam",
-        region: "EU West",
+        name: "Central India (Pune)",
+        region: "Asia",
+        flag: "/flags/india.png",
+        ping: "10ms",
+        status: "active",
+        lat: 18.5204,
+        lng: 73.8567,
+    },
+    {
+        name: "South India (Chennai)",
+        region: "Asia",
+        flag: "/flags/india.png",
+        ping: "12ms",
+        status: "active",
+        lat: 13.0827,
+        lng: 80.2707,
+    },
+    {
+        name: "West India (Mumbai)",
+        region: "Asia",
+        flag: "/flags/india.png",
+        ping: "8ms",
+        status: "active",
+        lat: 19.0760,
+        lng: 72.8777,
+    },
+    {
+        name: "Germany West Central (Frankfurt)",
+        region: "Europe",
         flag: "/flags/germany.png",
         ping: "66ms",
         status: "active",
-        lat: 52.3676,
-        lng: 4.9041,
+        lat: 50.1109,
+        lng: 8.6821,
     },
     {
-        name: "Chicago, IL",
-        region: "US Central",
-        flag: "/flags/usa.png",
-        ping: "157ms",
+        name: "Germany North",
+        region: "Europe",
+        flag: "/flags/germany.png",
+        ping: "72ms",
         status: "active",
-        lat: 41.8781,
-        lng: -87.6298,
+        lat: 53.5511,
+        lng: 9.9937,
     },
     {
-        name: "Dallas, TX",
-        region: "US South",
-        flag: "/flags/usa.png",
-        ping: "169ms",
+        name: "UAE Central (Abu Dhabi)",
+        region: "UAE",
+        flag: "",
+        ping: "35ms",
         status: "active",
-        lat: 32.7767,
-        lng: -96.7970,
+        lat: 24.4539,
+        lng: 54.3773,
     },
     {
-        name: "Seattle, WA",
-        region: "US West",
-        flag: "/flags/usa.png",
-        ping: "197ms",
+        name: "Qatar Central",
+        region: "UAE",
+        flag: "",
+        ping: "40ms",
         status: "active",
-        lat: 47.6062,
-        lng: -122.3321,
+        lat: 25.2854,
+        lng: 51.5310,
     },
 ];
 
@@ -55,14 +82,16 @@ const LocationItem = memo(({ location, index }: { location: typeof locations[0],
             transition={{ duration: 0.5, delay: index * 0.1 }}
         >
             <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
-                <Image
-                    src={location.flag}
-                    alt={`${location.name} flag`}
-                    width={32}
-                    height={32}
-                    className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded object-cover flex-shrink-0"
-                    loading="lazy"
-                />
+                {location.flag && (
+                    <Image
+                        src={location.flag}
+                        alt={`${location.name} flag`}
+                        width={32}
+                        height={32}
+                        className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded object-cover flex-shrink-0"
+                        loading="lazy"
+                    />
+                )}
                 <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-1.5 sm:gap-2">
                         <h3 className="text-gray-900 dark:text-white font-semibold text-xs sm:text-sm lg:text-base truncate">
@@ -182,12 +211,12 @@ export default function LocationsSection() {
                             delivering ultra-low latency from anywhere and lightning-fast connections wherever you play.
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                             <div>
-                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">Europe</h3>
+                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">Asia</h3>
                                 <div className="space-y-0.5 sm:space-y-1">
                                     {locations
-                                        .filter(loc => loc.region.includes("EU"))
+                                        .filter(loc => loc.region === "Asia")
                                         .map((location, index) => (
                                             <LocationItem key={location.name} location={location} index={index} />
                                         ))
@@ -196,12 +225,24 @@ export default function LocationsSection() {
                             </div>
 
                             <div>
-                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">Americas</h3>
+                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">Europe</h3>
                                 <div className="space-y-0.5 sm:space-y-1">
                                     {locations
-                                        .filter(loc => loc.region.includes("US"))
+                                        .filter(loc => loc.region === "Europe")
                                         .map((location, index) => (
-                                            <LocationItem key={location.name} location={location} index={index + 1} />
+                                            <LocationItem key={location.name} location={location} index={index + 10} />
+                                        ))
+                                    }
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">UAE</h3>
+                                <div className="space-y-0.5 sm:space-y-1">
+                                    {locations
+                                        .filter(loc => loc.region === "UAE")
+                                        .map((location, index) => (
+                                            <LocationItem key={location.name} location={location} index={index + 20} />
                                         ))
                                     }
                                 </div>

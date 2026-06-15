@@ -11,7 +11,7 @@
         "titleKey": "pricingPlans.gameServers.title",
         "image": "/games.jpg",
         "descriptionKey": "pricingPlans.gameServers.description",
-        "basePrice": 4.99,
+        "basePrice": "₹75",
         "featuresKeys": [
           "pricingPlans.gameServers.features.instantDeployment",
           "pricingPlans.gameServers.features.ddosProtection",

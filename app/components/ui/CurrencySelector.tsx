@@ -213,8 +213,15 @@ export function useCurrency(): UseCurrencyReturn {
   }, []);
 
   const convertPrice = (price: string): string => {
+    if (price.includes(selectedCurrency.symbol)) {
+      const numericPrice = parseFloat(price.replace(/[₹£$€¥C\$A\$]/g, ''));
+      if (isNaN(numericPrice)) {
+        return `${selectedCurrency.symbol}0.00`;
+      }
+      return `${selectedCurrency.symbol}${numericPrice.toFixed(2)}`;
+    }
     
-    const numericPrice = parseFloat(price.replace(/[£$€¥C\$A\$]/g, ''));
+    const numericPrice = parseFloat(price.replace(/[₹£$€¥C\$A\$]/g, ''));
     
     if (isNaN(numericPrice)) {
       return `${selectedCurrency.symbol}0.00`;

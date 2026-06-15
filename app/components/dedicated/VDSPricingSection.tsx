@@ -2,23 +2,41 @@
 
 import { motion } from "framer-motion"
 import { Server, Cpu, MemoryStick, HardDrive, Wifi, Check } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import dediConfig from "../../config/sections/dedicated.json"
 import type { DediConfig } from "../../types/dedicated"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 
-const config = dediConfig as DediConfig
+const globalConfig = dediConfig as DediConfig
 
 export default function VDSPricingSection() {
   const { selectedCurrency, setSelectedCurrency, convertPrice } = useCurrency()
   const { t } = useLanguage()
+
+  const [activeConfig, setActiveConfig] = useState<DediConfig>(globalConfig)
+  const config = activeConfig
+
   const [selectedLocation, setSelectedLocation] = useState(config.locations[0].id)
   const [selectedCPU, setSelectedCPU] = useState(() => {
     const firstLocation = config.locations[0]
     return firstLocation.availableCpus[0] || config.planTypes[0].id
   })
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=dedicated")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.planTypes && data.planTypes.length > 0) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const currentLocation = config.locations.find(loc => loc.id === selectedLocation)
   const availableCPUs = currentLocation?.availableCpus || []
@@ -160,13 +178,15 @@ export default function VDSPricingSection() {
                           : "bg-gray-100 dark:bg-gray-800/10 border border-primary text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
                       }`}
                     >
-                      <Image
-                        src={location.flag || "/placeholder.svg"}
-                        alt={`${location.name} flag`}
-                        width={32}
-                        height={32}
-                        className={`rounded-full object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
-                      />
+                      {location.flag && (
+                        <Image
+                          src={location.flag}
+                          alt={`${location.name} flag`}
+                          width={32}
+                          height={32}
+                          className={`rounded-full object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
+                        />
+                      )}
                       <span className="text-sm font-medium">{location.displayName}</span>
                     </button>
                   )
@@ -202,15 +222,17 @@ export default function VDSPricingSection() {
                   )}
                   <div className="p-6">
                     <div className="flex items-center gap-4 mb-6">
-                      <Image
-                        src={
-                          config.locations.find((loc) => loc.id === selectedLocation)?.flag || config.locations[0].flag
-                        }
-                        alt={`${config.locations.find((loc) => loc.id === selectedLocation)?.name || "Location"}`}
-                        width={48}
-                        height={48}
-                        className="rounded-lg"
-                      />
+                      {config.locations.find((loc) => loc.id === selectedLocation)?.flag && (
+                        <Image
+                          src={
+                            config.locations.find((loc) => loc.id === selectedLocation)?.flag || ""
+                          }
+                          alt={`${config.locations.find((loc) => loc.id === selectedLocation)?.name || "Location"}`}
+                          width={48}
+                          height={48}
+                          className="rounded-lg"
+                        />
+                      )}
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white">{plan.name}</h3>
                         <p className="text-sm text-gray-500 dark:text-gray-400">

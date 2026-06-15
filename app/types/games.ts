@@ -1,11 +1,11 @@
 export interface GamePlan {
   id: string
   name: string
-  type: "budget" | "premium"
+  type: string
   ram: string
   cpu: string
   storage: string
-  price: number
+  price: number | string
   orderLink: string
 }
 
@@ -18,10 +18,7 @@ export interface Game {
   featured: boolean
   startingAt: string
   primaryColor: string
-  plans: {
-    budget: GamePlan[]
-    premium: GamePlan[]
-  }
+  plans: Record<string, GamePlan[]>
 }
 
 export interface GameLocation {
@@ -29,6 +26,7 @@ export interface GameLocation {
   name: string
   flag: string
   availablePlanTypes: string[]
+  setupFee?: number
 }
 
 export interface PlanType {

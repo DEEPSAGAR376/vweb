@@ -125,8 +125,12 @@ const ThemeToggle = React.memo((): React.ReactElement => {
 ThemeToggle.displayName = 'ThemeToggle'
 
 const Navbar: React.FC = () => {
+  const [activeConfig, setActiveConfig] = useState<NavigationConfig>(navigationConfig as NavigationConfig)
+  const config = activeConfig
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showBanner, setShowBanner] = useState(config.banner.show);
+  const [isBannerDismissed, setIsBannerDismissed] = useState(false);
+  const showBanner = config.banner.show && !isBannerDismissed;
   const [isScrolled, setIsScrolled] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
   const [confettiConfig, setConfettiConfig] = useState({
@@ -140,6 +144,20 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { theme } = useTheme();
   const { t } = useLanguage();
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=navigation")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.banner) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -683,7 +701,7 @@ const Navbar: React.FC = () => {
               </div>
               <button
                 className="text-white hover:text-white/90 transition-colors flex-shrink-0"
-                onClick={() => setShowBanner(false)}
+                onClick={() => setIsBannerDismissed(true)}
                 aria-label="Close banner"
               >
                 <X className="w-4 h-4" />

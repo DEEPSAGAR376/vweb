@@ -2,19 +2,37 @@
 
 import { motion } from "framer-motion"
 import { Server, Cpu, MemoryStick, HardDrive, Wifi, HeartPulse } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import discordConfig from "../../config/sections/discord.json"
 import type { DiscordConfig } from "../../types/discord"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 
-const config = discordConfig as DiscordConfig
+const globalConfig = discordConfig as DiscordConfig
 
 export default function DiscordPricingSection() {
   const { t } = useLanguage()
   const { selectedCurrency, setSelectedCurrency, convertPrice } = useCurrency()
+
+  const [activeConfig, setActiveConfig] = useState<DiscordConfig>(globalConfig)
+  const config = activeConfig
+
   const [selectedPlanType, setSelectedPlanType] = useState(config.planTypes[0].id)
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=discord")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.planTypes && data.planTypes.length > 0) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const currentPlans = config.plans[selectedPlanType] || config.plans[config.planTypes[0].id]
 

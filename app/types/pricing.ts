@@ -2,7 +2,7 @@ export interface PricingPlan {
   titleKey: string;
   image: string;
   descriptionKey: string;
-  basePrice: number;
+  basePrice: number | string;
   featuresKeys: string[];
   buttonTextKey: string;
   buttonStyle: "primary" | "secondary";

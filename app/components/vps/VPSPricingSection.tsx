@@ -2,20 +2,38 @@
 
 import { motion } from "framer-motion"
 import { Server, Cpu, MemoryStick, HardDrive, ChevronLeft, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import vpsConfig from "../../config/sections/vps.json"
 import type { VPSConfig } from "../../types/vps"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 
-const config = vpsConfig as VPSConfig
+const globalConfig = vpsConfig as VPSConfig
 
 export default function VPSPricingSection() {
   const { selectedCurrency, setSelectedCurrency, convertPrice } = useCurrency()
   const { t } = useLanguage()
+
+  const [activeConfig, setActiveConfig] = useState<VPSConfig>(globalConfig)
+  const config = activeConfig
+
   const [selectedLocation, setSelectedLocation] = useState(config.locations[0].id)
   const [selectedCPU, setSelectedCPU] = useState(config.planTypes[0].id)
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=vps")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.planTypes && data.planTypes.length > 0) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
   const [currentPage, setCurrentPage] = useState(1)
   const plansPerPage = 3
   const currentLocation = config.locations.find(loc => loc.id === selectedLocation)
@@ -140,13 +158,15 @@ export default function VPSPricingSection() {
                           : "bg-gray-100 dark:bg-gray-800/10 border button-primary text-gray-400 dark:text-gray-500 cursor-not-allowed opacity-50"
                       }`}
                     >
-                      <Image
-                        src={location.flag || "/placeholder.svg"}
-                        alt={`${location.name} flag`}
-                        width={24}
-                        height={24}
-                        className={`object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
-                      />
+                      {location.flag && (
+                        <Image
+                          src={location.flag}
+                          alt={`${location.name} flag`}
+                          width={24}
+                          height={24}
+                          className={`object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
+                        />
+                      )}
                       <span className="text-sm font-medium">{location.displayName}</span>
                     </button>
                   )
