@@ -6,6 +6,10 @@ import Image from "next/image"
 import { Mail, Phone, Gamepad2, ExternalLink } from "lucide-react"
 import DiscordBanner from "./DiscordBanner"
 import { useLanguage } from "../contexts/LanguageContext"
+import brandingConfig from "../config/sections/branding.json"
+import type { BrandingConfig } from "../types/branding"
+
+const branding = brandingConfig as BrandingConfig
 
 export default function Footer() {
   const { t } = useLanguage()
@@ -24,9 +28,9 @@ export default function Footer() {
   ]
 
   const contactInfo = [
-    { icon: Mail, label: t('footer.email'), value: "support@dezerx.com", href: "mailto:support@dezerx.com" },
+    { icon: Mail, label: t('footer.email'), value: branding.supportEmail, href: `mailto:${branding.supportEmail}` },
     { icon: Phone, label: t('footer.phone'), value: "N/A", href: "tel:+15551234567" },
-    { icon: Gamepad2, label: t('footer.gamePanel'), value: "panel.dezerx.com", href: "https://panel.dezerx.com" },
+    { icon: Gamepad2, label: t('footer.gamePanel'), value: branding.gamePanelUrl, href: `https://${branding.gamePanelUrl}` },
   ]
 
   return (
@@ -48,7 +52,7 @@ export default function Footer() {
               <div className="mb-6">
                 <Image
                   src="/meta/Logo.png"
-                  alt="Dezer Logo"
+                  alt={`${branding.fullName} Logo`}
                   width={200}
                   height={60}
                   className="h-12 w-auto"
@@ -146,7 +150,7 @@ export default function Footer() {
             {/* Look, remove the DezerNova add ur own hosting, but go above and change ur name to MY NAME AGAIN. come onn man, it would look like i worked for you. come on buddy, i know u want to keep it.  */}
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div className="text-gray-500 dark:text-gray-500 text-sm mb-4 md:mb-0">
-                © {new Date().getFullYear()} DezerNova. All rights reserved.
+                © {new Date().getFullYear()} {branding.fullName}. All rights reserved.
               </div>
               <div className="flex items-center space-x-6">
                 <div className="flex items-center space-x-2">

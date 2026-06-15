@@ -8,6 +8,11 @@ import CookieConsent from "./components/CookieConsent";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import ChristmasSnowfall from "./components/ChristmasSnowfall";
 import { Analytics } from "@vercel/analytics/next"
+import brandingConfig from "./config/sections/branding.json";
+import type { BrandingConfig } from "./types/branding";
+
+const branding = brandingConfig as BrandingConfig;
+const siteUrl = branding.websiteUrl.replace(/\/$/, "");
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,10 +56,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "DezerNova - Game Hosting, VPS & Dedicated Servers",
-    template: "%s | DezerNova"
+    default: `${branding.fullName} - ${branding.tagline}`,
+    template: `%s | ${branding.fullName}`
   },
-  description: "Premium game hosting, VPS & dedicated servers by DezerNova. High-performance infrastructure with 99.9% uptime, DDoS protection & 24/7 support.",
+  description: branding.description,
   keywords: [
     "game hosting",
     "minecraft hosting",
@@ -63,7 +68,7 @@ export const metadata: Metadata = {
     "dedicated servers",
     "cloud servers",
     "gaming servers",
-    "DezerNova",
+    branding.fullName,
     "low latency hosting",
     "DDoS protection",
     "24/7 support",
@@ -71,32 +76,32 @@ export const metadata: Metadata = {
     "modded game hosting",
     "server rental"
   ],
-  authors: [{ name: "Anthony" }],
-  creator: "Anthony",
-  publisher: "DezerX | NovaTemplate",
+  authors: [{ name: branding.fullName }],
+  creator: branding.fullName,
+  publisher: branding.fullName,
   category: "Game Hosting & Server Solutions",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://nova.dezerx.com",
-    siteName: "DezerNova - Game Hosting & Servers",
-    title: "DezerNova - Game Hosting, VPS & Dedicated Servers",
-    description: "Premium game hosting, VPS, and dedicated server solutions. High-performance infrastructure for gaming communities and developers with DDoS protection.",
+    url: siteUrl,
+    siteName: `${branding.fullName} - Game Hosting & Servers`,
+    title: `${branding.fullName} - ${branding.tagline}`,
+    description: branding.description,
     images: [
       {
-        url: "https://nova.dezerx.com/meta/Banner.png",
+        url: `${siteUrl}/meta/Banner.png`,
         width: 1200,
         height: 630,
-        alt: "DezerNova - Game Hosting, VPS & Dedicated Servers",
+        alt: `${branding.fullName} - ${branding.tagline}`,
         type: "image/png"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "DezerNova - Game Hosting, VPS & Dedicated Servers",
-    description: "Premium game hosting and server solutions. High-performance infrastructure for gaming communities with DDoS protection and 24/7 support.",
-    images: ["https://nova.dezerx.com/meta/Banner.png"]
+    title: `${branding.fullName} - ${branding.tagline}`,
+    description: branding.description,
+    images: [`${siteUrl}/meta/Banner.png`]
   },
   robots: {
     index: true,
@@ -118,7 +123,7 @@ export const metadata: Metadata = {
     google: "vzsKvhNUgAPlCbf1annB0Sl-bttSFos87mhOyQSU2aY", 
   },
 
-  applicationName: "DezerNova",
+  applicationName: branding.fullName,
   referrer: "origin-when-cross-origin",
 
   manifest: "/manifest.json",
@@ -134,13 +139,13 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: "https://nova.dezerx.com"
+    canonical: siteUrl
   },
   other: {
     "msapplication-TileColor": "#1e40af",
     "msapplication-config": "/browserconfig.xml",
-    "terms-of-service": "https://nova.dezerx.com/terms-of-services",
-    "privacy-policy": "https://nova.dezerx.com/privacy-policy"
+    "terms-of-service": `${siteUrl}/terms-of-services`,
+    "privacy-policy": `${siteUrl}/privacy-policy`
   }
 };
 // yo yo, wassup, ma name is big A aka the big ANTHONYYYYYYYYYYYYYYYYYY. like my work so far? rate it a 5 star on BBB pweaseeeeeeeeee
@@ -156,7 +161,7 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="DezerNova" />
+        <meta name="apple-mobile-web-app-title" content={branding.fullName} />
         <meta name="crawl-delay" content="10" />
         <meta name="revisit-after" content="7 days" />
         <script
@@ -165,10 +170,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "DezerNova",
-              "url": "https://nova.dezerx.com",
-              "logo": "https://nova.dezerx.com/meta/Logo.png",
-              "description": "Premium game hosting, VPS, and dedicated server solutions for gaming communities and developers",
+              "name": branding.fullName,
+              "url": siteUrl,
+              "logo": `${siteUrl}/meta/Logo.png`,
+              "description": branding.description,
               "serviceType": ["Game Server Hosting", "VPS Hosting", "Dedicated Servers", "Cloud Infrastructure"],
               "areaServed": "Worldwide",
               "hasOfferCatalog": {
@@ -215,8 +220,8 @@ export default function RootLayout({
                 "@type": "Person",
                 "name": "Anthony "
               },
-              "termsOfService": "https://nova.dezerx.com/terms-of-services",
-              "privacyPolicy": "https://nova.dezerx.com/privacy-policy"
+              "termsOfService": `${siteUrl}/terms-of-services`,
+              "privacyPolicy": `${siteUrl}/privacy-policy`
             })
           }}
         />

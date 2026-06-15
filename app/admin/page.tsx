@@ -17,7 +17,8 @@ import {
   Plus,
   Trash2,
   Cpu,
-  Globe
+  Globe,
+  Palette
 } from "lucide-react";
 import Image from "next/image";
 
@@ -36,6 +37,9 @@ export default function AdminDashboard() {
   const [dedicatedConfig, setDedicatedConfig] = useState<any>(null);
   const [discordConfig, setDiscordConfig] = useState<any>(null);
   const [webhostingConfig, setWebhostingConfig] = useState<any>(null);
+  const [brandingConfig, setBrandingConfig] = useState<any>(null);
+  const [heroConfig, setHeroConfig] = useState<any>(null);
+  const [legalConfig, setLegalConfig] = useState<any>(null);
 
   // Raw JSON edit modes
   const [rawJson, setRawJson] = useState("");
@@ -137,13 +141,16 @@ export default function AdminDashboard() {
         return res.json();
       };
 
-      const [nav, games, vps, dedi, discord, webhost] = await Promise.all([
+      const [nav, games, vps, dedi, discord, webhost, branding, hero, legal] = await Promise.all([
         fetchConfig("navigation"),
         fetchConfig("games"),
         fetchConfig("vps"),
         fetchConfig("dedicated"),
         fetchConfig("discord"),
         fetchConfig("webhosting"),
+        fetchConfig("branding"),
+        fetchConfig("hero"),
+        fetchConfig("legal"),
       ]);
 
       setNavigationConfig(nav);
@@ -152,6 +159,9 @@ export default function AdminDashboard() {
       setDedicatedConfig(dedi);
       setDiscordConfig(discord);
       setWebhostingConfig(webhost);
+      setBrandingConfig(branding);
+      setHeroConfig(hero);
+      setLegalConfig(legal);
 
       if (games.games && games.games.length > 0) {
         setSelectedGameId(games.games[0].id);
@@ -210,6 +220,101 @@ export default function AdminDashboard() {
     }
   };
 
+  const saveBranding = async () => {
+    if (!brandingConfig) return;
+    setLoading(true);
+    const token = sessionStorage.getItem("admin_token") || "";
+    try {
+      const brandingRes = await fetch(`/api/admin/config?section=branding`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(brandingConfig),
+      });
+
+      if (brandingRes.status === 401) {
+        sessionStorage.removeItem("admin_token");
+        setIsAuthenticated(false);
+        showStatus("error", "Session expired. Please log in again.");
+        return;
+      }
+
+      if (!brandingRes.ok) {
+        const result = await brandingRes.json();
+        showStatus("error", result.error || "Failed to save branding");
+        return;
+      }
+
+      if (heroConfig) {
+        const updatedHero = {
+          ...heroConfig,
+          navbar: {
+            ...heroConfig.navbar,
+            logo: brandingConfig.logo,
+            brandName: brandingConfig.brandName,
+            brandAccent: brandingConfig.brandAccent,
+          },
+        };
+        await fetch(`/api/admin/config?section=hero`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedHero),
+        });
+        setHeroConfig(updatedHero);
+      }
+
+      if (legalConfig) {
+        const updatedLegal = {
+          ...legalConfig,
+          termsOfService: {
+            ...legalConfig.termsOfService,
+            companyName: brandingConfig.fullName,
+            websiteUrl: brandingConfig.websiteUrl,
+            contactEmail: brandingConfig.legalEmail,
+          },
+          privacyPolicy: {
+            ...legalConfig.privacyPolicy,
+            companyName: brandingConfig.fullName,
+            websiteUrl: brandingConfig.websiteUrl,
+            contactEmail: brandingConfig.legalEmail,
+          },
+        };
+        await fetch(`/api/admin/config?section=legal`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedLegal),
+        });
+        setLegalConfig(updatedLegal);
+      }
+
+      showStatus("success", "Branding updated successfully!");
+      loadAllConfigs(token);
+    } catch {
+      showStatus("error", "Connection error when saving branding");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const brandDisplay = brandingConfig ? (
+    <>
+      {brandingConfig.brandName}
+      <span className="text-blue-500">{brandingConfig.brandAccent}</span>
+    </>
+  ) : (
+    <>
+      Rim<span className="text-blue-500">Host</span>
+    </>
+  );
+
   const showStatus = (type: "success" | "error", text: string) => {
     setStatusMsg({ type, text });
     setTimeout(() => {
@@ -234,6 +339,9 @@ export default function AdminDashboard() {
       case "discord": data = discordConfig; break;
       case "webhosting": data = webhostingConfig; break;
       case "navigation": data = navigationConfig; break;
+      case "branding": data = brandingConfig; break;
+      case "hero": data = heroConfig; break;
+      case "legal": data = legalConfig; break;
     }
     if (data) {
       setRawJson(JSON.stringify(data, null, 2));
@@ -259,7 +367,7 @@ export default function AdminDashboard() {
         <div className="relative z-10 w-full max-w-md bg-[#0d0f1a]/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-8 shadow-2xl">
           <div className="text-center mb-8">
             <h1 className="text-3xl font-extrabold tracking-tight orbitron-font text-white mb-2">
-              DEZER<span className="text-blue-500">NOVA</span>
+              {brandDisplay}
             </h1>
             <p className="text-gray-400 text-sm">Control Panel Authentication</p>
           </div>
@@ -345,7 +453,7 @@ export default function AdminDashboard() {
       <header className="relative z-10 border-b border-gray-800 bg-[#0c0d17]/60 backdrop-blur-md px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-3">
           <h1 className="text-xl font-bold tracking-tight orbitron-font">
-            DEZER<span className="text-blue-500">NOVA</span> <span className="text-xs bg-blue-950 text-blue-400 px-2 py-0.5 rounded ml-2 font-mono uppercase tracking-wider">ADMIN</span>
+            {brandDisplay} <span className="text-xs bg-blue-950 text-blue-400 px-2 py-0.5 rounded ml-2 font-mono uppercase tracking-wider">ADMIN</span>
           </h1>
         </div>
         <div className="flex items-center gap-4">
@@ -365,6 +473,7 @@ export default function AdminDashboard() {
         {/* Sidebar Nav */}
         <aside className="lg:col-span-1 space-y-2">
           {[
+            { id: "branding", label: "Site Branding", icon: Palette },
             { id: "notifications", label: "Announcement Banner", icon: Bell },
             { id: "games", label: "Game Pricing", icon: Gamepad2 },
             { id: "vps", label: "VPS Plans", icon: Cloud },
@@ -395,6 +504,168 @@ export default function AdminDashboard() {
         {/* Workspace */}
         <main className="lg:col-span-3 bg-[#0d0f1a]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6 sm:p-8 shadow-xl min-h-[500px]">
           
+          {/* TAB: SITE BRANDING */}
+          {activeTab === "branding" && brandingConfig && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold mb-2">Site Branding</h2>
+                <p className="text-gray-400 text-sm">
+                  Change your site name, logo, and contact details. Updates navbar, footer, SEO metadata, and legal pages after a refresh.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-gray-800 pt-6">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Brand Name (first part)
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.brandName}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, brandName: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Brand Accent (highlighted part)
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.brandAccent}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, brandAccent: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Full Name (used in copyright &amp; SEO)
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.fullName}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, fullName: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Tagline
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.tagline}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, tagline: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Site Description (SEO)
+                  </label>
+                  <textarea
+                    value={brandingConfig.description}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, description: e.target.value })}
+                    rows={3}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Logo Path
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.logo}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, logo: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Website URL
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.websiteUrl}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, websiteUrl: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Support Email
+                  </label>
+                  <input
+                    type="email"
+                    value={brandingConfig.supportEmail}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, supportEmail: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Legal Email
+                  </label>
+                  <input
+                    type="email"
+                    value={brandingConfig.legalEmail}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, legalEmail: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                    Game Panel URL
+                  </label>
+                  <input
+                    type="text"
+                    value={brandingConfig.gamePanelUrl}
+                    onChange={(e) => setBrandingConfig({ ...brandingConfig, gamePanelUrl: e.target.value })}
+                    className="w-full bg-[#131626] border border-gray-800 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                <div className="md:col-span-2 p-4 bg-[#131626] border border-gray-800 rounded-lg">
+                  <span className="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Preview</span>
+                  <div className="flex items-center gap-3">
+                    <Image
+                      src={brandingConfig.logo || "/banners/web.webp"}
+                      alt="Logo preview"
+                      width={48}
+                      height={48}
+                      className="h-10 w-auto rounded"
+                    />
+                    <span className="text-2xl font-bold orbitron-font">
+                      {brandingConfig.brandName}
+                      <span className="text-blue-500">{brandingConfig.brandAccent}</span>
+                    </span>
+                  </div>
+                  <p className="text-gray-400 text-sm mt-3">{brandingConfig.fullName} — {brandingConfig.tagline}</p>
+                </div>
+              </div>
+
+              <div className="flex justify-end border-t border-gray-800 pt-6">
+                <button
+                  onClick={saveBranding}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg flex items-center gap-2"
+                >
+                  <Save className="w-5 h-5" />
+                  <span>Save Branding</span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* TAB 1: NOTIFICATIONS (BANNER) */}
           {activeTab === "notifications" && navigationConfig && (
             <div className="space-y-6">
@@ -1323,7 +1594,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {["navigation", "games", "vps", "dedicated", "discord", "webhosting"].map((sec) => (
+                  {["navigation", "branding", "hero", "legal", "games", "vps", "dedicated", "discord", "webhosting"].map((sec) => (
                     <button
                       key={sec}
                       onClick={() => loadRawJsonSection(sec)}

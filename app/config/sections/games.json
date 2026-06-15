@@ -97,7 +97,7 @@
     {
       "id": "qatar-central",
       "name": "Qatar Central",
-      "flag": "",
+      "flag": "/flags/qatar.svg",
       "setupFee": 150,
       "availablePlanTypes": [
         "intel-v4",

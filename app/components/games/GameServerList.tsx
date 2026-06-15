@@ -12,6 +12,7 @@ import type { GamesConfig, Game, GamePlan, GameLocation } from "../../types/game
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
 import uiConfig from "../../config/sections/ui.json"
+import { flagImageClass } from "@/lib/utils"
 
 const config = gamesConfig as GamesConfig
 
@@ -218,9 +219,9 @@ export default function GameServerList() {
                         <Image
                           src={location.flag}
                           alt={`${location.name} flag`}
-                          width={24}
-                          height={24}
-                          className={`rounded-full object-cover ${!hasAvailablePlanTypes ? 'opacity-50' : ''}`}
+                          width={28}
+                          height={20}
+                          className={`${flagImageClass} ${!hasAvailablePlanTypes ? 'opacity-50' : ''}`}
                         />
                       )}
                       <span className="text-sm font-medium">{location.name}</span>

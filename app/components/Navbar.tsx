@@ -32,11 +32,14 @@ import Confetti from 'react-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import navigationConfig from '../config/sections/navigation.json';
 import heroConfig from '../config/sections/hero.json';
+import brandingConfig from '../config/sections/branding.json';
 import type { HeroConfig } from '../types/hero';
+import type { BrandingConfig } from '../types/branding';
 import uiConfig from '../config/sections/ui.json';
 
 const config = navigationConfig as NavigationConfig;
 const heroSettings = heroConfig as HeroConfig;
+const branding = brandingConfig as BrandingConfig;
 
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -725,8 +728,8 @@ const Navbar: React.FC = () => {
                 prefetch={true}
               >
                 <Image
-                  src={heroSettings.navbar.logo}
-                  alt={heroSettings.navbar.brandName}
+                  src={branding.logo}
+                  alt={branding.brandName}
                   className="h-8 sm:h-10 md:h-12 w-auto"
                   width={48}
                   height={48}
@@ -735,7 +738,7 @@ const Navbar: React.FC = () => {
                   sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, 48px"
                 />
                 <span className="text-base sm:text-lg md:text-xl font-bold text-gray-900 dark:text-white orbitron-font">
-                  {heroSettings.navbar.brandName}<span className="icon-text-primary">{heroSettings.navbar.brandAccent}</span>
+                  {branding.brandName}<span className="icon-text-primary">{branding.brandAccent}</span>
                 </span>
               </Link>
             </div>

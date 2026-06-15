@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import uiConfig from "../config/sections/ui.json";
+import brandingConfig from "../config/sections/branding.json";
 import type { UIConfig } from "../types/ui";
+import type { BrandingConfig } from "../types/branding";
 
 const config = uiConfig as UIConfig;
+const branding = brandingConfig as BrandingConfig;
 
 function LoadingScreen() {
   return (
@@ -16,7 +19,7 @@ function LoadingScreen() {
         </div>
         <div className="flex items-center gap-2">
           <span className="text-lg text-gray-900 dark:text-white orbitron-font">
-            Nova
+            {branding.fullName}
           </span>
         </div>
       </div>

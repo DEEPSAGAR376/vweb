@@ -72,7 +72,7 @@
     {
       "id": "qatar-central",
       "name": "Qatar Central",
-      "flag": "",
+      "flag": "/flags/qatar.svg",
       "displayName": "Qatar Central",
       "cpu": "AMD Ryzen 9",
       "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]

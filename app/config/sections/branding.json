@@ -1,0 +1,12 @@
+{
+  "brandName": "Rim",
+  "brandAccent": "Host",
+  "fullName": "Rim Host",
+  "tagline": "Game Hosting, VPS & Dedicated Servers",
+  "description": "Premium game hosting, VPS & dedicated servers by Rim Host. High-performance infrastructure with 99.9% uptime, DDoS protection & 24/7 support.",
+  "logo": "/banners/web.webp",
+  "websiteUrl": "https://rimhost.com",
+  "supportEmail": "support@rimhost.com",
+  "legalEmail": "legal@rimhost.com",
+  "gamePanelUrl": "panel.rimhost.com"
+}

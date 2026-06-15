@@ -14,6 +14,9 @@ const ALLOWED_SECTIONS = [
   "discord",
   "webhosting",
   "navigation",
+  "branding",
+  "hero",
+  "legal",
 ] as const;
 
 async function ensureDir() {

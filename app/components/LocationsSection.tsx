@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { memo, useMemo, useState, useEffect } from "react";
 import { Globe } from "@/components/ui/globe";
+import { flagImageClass } from "@/lib/utils";
 
 const locations = [
     {
@@ -61,8 +62,8 @@ const locations = [
     },
     {
         name: "Qatar Central",
-        region: "UAE",
-        flag: "",
+        region: "Qatar",
+        flag: "/flags/qatar.svg",
         ping: "40ms",
         status: "active",
         lat: 25.2854,
@@ -87,8 +88,8 @@ const LocationItem = memo(({ location, index }: { location: typeof locations[0],
                         src={location.flag}
                         alt={`${location.name} flag`}
                         width={32}
-                        height={32}
-                        className="w-5 h-5 sm:w-6 sm:h-6 lg:w-8 lg:h-8 rounded object-cover flex-shrink-0"
+                        height={20}
+                        className={flagImageClass}
                         loading="lazy"
                     />
                 )}
@@ -237,10 +238,10 @@ export default function LocationsSection() {
                             </div>
 
                             <div>
-                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">UAE</h3>
+                                <h3 className="icon-text-primary orbitron-font text-sm sm:text-base lg:text-lg mb-1.5 sm:mb-2 font-semibold">Middle East</h3>
                                 <div className="space-y-0.5 sm:space-y-1">
                                     {locations
-                                        .filter(loc => loc.region === "UAE")
+                                        .filter(loc => loc.region === "UAE" || loc.region === "Qatar")
                                         .map((location, index) => (
                                             <LocationItem key={location.name} location={location} index={index + 20} />
                                         ))

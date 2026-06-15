@@ -8,6 +8,7 @@ import vpsConfig from "../../config/sections/vps.json"
 import type { VPSConfig } from "../../types/vps"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
+import { flagImageClass } from "@/lib/utils"
 
 const globalConfig = vpsConfig as VPSConfig
 
@@ -162,9 +163,9 @@ export default function VPSPricingSection() {
                         <Image
                           src={location.flag}
                           alt={`${location.name} flag`}
-                          width={24}
-                          height={24}
-                          className={`object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
+                          width={28}
+                          height={20}
+                          className={`${flagImageClass} ${!hasAvailableCpus ? 'opacity-50' : ''}`}
                         />
                       )}
                       <span className="text-sm font-medium">{location.displayName}</span>

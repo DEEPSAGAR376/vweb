@@ -8,6 +8,7 @@ import dediConfig from "../../config/sections/dedicated.json"
 import type { DediConfig } from "../../types/dedicated"
 import { CurrencySelector, useCurrency } from "../ui/CurrencySelector"
 import { useLanguage } from "../../contexts/LanguageContext"
+import { flagImageClass } from "@/lib/utils"
 
 const globalConfig = dediConfig as DediConfig
 
@@ -182,9 +183,9 @@ export default function VDSPricingSection() {
                         <Image
                           src={location.flag}
                           alt={`${location.name} flag`}
-                          width={32}
-                          height={32}
-                          className={`rounded-full object-cover ${!hasAvailableCpus ? 'opacity-50' : ''}`}
+                          width={28}
+                          height={20}
+                          className={`${flagImageClass} ${!hasAvailableCpus ? 'opacity-50' : ''}`}
                         />
                       )}
                       <span className="text-sm font-medium">{location.displayName}</span>
