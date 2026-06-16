@@ -8,6 +8,7 @@ import CookieConsent from "./components/CookieConsent";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import ChristmasSnowfall from "./components/ChristmasSnowfall";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -231,6 +232,7 @@ export default function RootLayout({
             <LayoutWrapper>
               {children}
               <Analytics />
+              <SpeedInsights />
             </LayoutWrapper>
             <CookieConsent />
             <ThemeSwitcher />
