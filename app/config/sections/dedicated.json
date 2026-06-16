@@ -1,5 +1,4 @@
 {
-  
   "planTypes": [
     {
       "id": "ryzen-7",
@@ -27,7 +26,11 @@
       "flag": "/flags/india.png",
       "displayName": "Central India (Pune)",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "south-india",
@@ -35,7 +38,11 @@
       "flag": "/flags/india.png",
       "displayName": "South India (Chennai)",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "west-india",
@@ -43,7 +50,11 @@
       "flag": "/flags/india.png",
       "displayName": "West India (Mumbai)",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "germany-west-central",
@@ -51,7 +62,11 @@
       "flag": "/flags/germany.png",
       "displayName": "Germany West Central (Frankfurt)",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "germany-north",
@@ -59,7 +74,11 @@
       "flag": "/flags/germany.png",
       "displayName": "Germany North",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "uae-central",
@@ -67,7 +86,11 @@
       "flag": "/flags/uae.png",
       "displayName": "UAE Central (Abu Dhabi)",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     },
     {
       "id": "qatar-central",
@@ -75,7 +98,11 @@
       "flag": "/flags/qatar.svg",
       "displayName": "Qatar Central",
       "cpu": "AMD Ryzen 9",
-      "availableCpus": ["ryzen-7", "ryzen-9", "intel-xeon"]
+      "availableCpus": [
+        "ryzen-7",
+        "ryzen-9",
+        "intel-xeon"
+      ]
     }
   ],
   "plans": {
@@ -92,7 +119,7 @@
         "storageDetail": "NVMe SSD",
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
-        "price": "£45.00",
+        "price": "8615",
         "period": "/mo",
         "features": [
           "Full Root Access",
@@ -116,7 +143,7 @@
         "storageDetail": "NVMe SSD",
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
-        "price": "£75.00",
+        "price": "35000",
         "period": "/mo",
         "features": [
           "Full Root Access",
@@ -140,7 +167,7 @@
         "storageDetail": "NVMe SSD",
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
-        "price": "£135.00",
+        "price": "135.00",
         "period": "/mo",
         "features": [
           "Full Root Access",
@@ -164,7 +191,7 @@
         "storageDetail": "NVMe SSD",
         "bandwidth": "Unlimited",
         "bandwidthDetail": "Bandwidth",
-        "price": "£245.00",
+        "price": "245.00",
         "period": "/mo",
         "features": [
           "Full Root Access",
