@@ -15,6 +15,7 @@
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/postcss": "^4.1.11",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^2.0.0",
     "@zachleat/snow-fall": "^1.0.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
