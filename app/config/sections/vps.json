@@ -91,7 +91,7 @@
         "storageDetail": "NVMe SSD",
         "price": "₹60",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-1"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IV4-2",
@@ -108,7 +108,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹120",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-2"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IV4-3",
@@ -125,7 +125,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹240",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-3"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IV4-4",
@@ -142,7 +142,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹360",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-4"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IV4-5",
@@ -159,7 +159,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹480",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-5"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IV4-6",
@@ -176,7 +176,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹960",
         "period": "/mo",
-        "orderLink": "/order/vps/IV4-6"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "intel-platinum": [
@@ -193,7 +193,7 @@
         "storageDetail": "NVMe SSD",
         "price": "₹70",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-1"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IP-2",
@@ -210,7 +210,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹140",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-2"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IP-3",
@@ -227,7 +227,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹280",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-3"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IP-4",
@@ -244,7 +244,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹420",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-4"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IP-5",
@@ -261,7 +261,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹560",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-5"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "IP-6",
@@ -278,7 +278,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹1120",
         "period": "/mo",
-        "orderLink": "/order/vps/IP-6"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "amd-epyc": [
@@ -295,7 +295,7 @@
         "storageDetail": "NVMe SSD",
         "price": "₹100",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-1"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "EPYC-2",
@@ -312,7 +312,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹200",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-2"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "EPYC-3",
@@ -329,7 +329,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹400",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-3"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "EPYC-4",
@@ -346,7 +346,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹600",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-4"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "EPYC-5",
@@ -363,7 +363,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹800",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-5"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "EPYC-6",
@@ -380,7 +380,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹1600",
         "period": "/mo",
-        "orderLink": "/order/vps/EPYC-6"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "ryzen-9": [
@@ -397,7 +397,7 @@
         "storageDetail": "NVMe SSD",
         "price": "₹140",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-1"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "R9X-2",
@@ -414,7 +414,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹280",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-2"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "R9X-3",
@@ -431,7 +431,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹560",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-3"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "R9X-4",
@@ -448,7 +448,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹840",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-4"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "R9X-5",
@@ -465,7 +465,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹1120",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-5"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "R9X-6",
@@ -482,7 +482,7 @@
         "bandwidthDetail": "Bandwidth",
         "price": "₹2240",
         "period": "/mo",
-        "orderLink": "/order/vps/R9X-6"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ]
   }

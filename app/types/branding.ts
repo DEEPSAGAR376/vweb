@@ -9,4 +9,5 @@ export interface BrandingConfig {
   supportEmail: string;
   legalEmail: string;
   gamePanelUrl: string;
+  discordUrl: string;
 }

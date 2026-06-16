@@ -207,14 +207,14 @@ export default function RootLayout({
                 ]
               },
               "sameAs": [
-                "https://discord.gg/Qrzn2enUP2"
+                brandingConfig.discordUrl
               ],
               "contactPoint": {
                 "@type": "ContactPoint",
                 "contactType": "customer service",
                 "availableLanguage": "English",
                 "serviceType": "Technical Support",
-                "url": "https://discord.gg/Qrzn2enUP2"
+                "url": brandingConfig.discordUrl
               },
               "founder": {
                 "@type": "Person",

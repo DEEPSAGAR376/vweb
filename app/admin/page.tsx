@@ -1007,7 +1007,7 @@ export default function AdminDashboard() {
                       cpu: "1 Core",
                       storage: "10GB SSD",
                       price: "₹100",
-                      orderLink: "https://billing.example.com"
+                      orderLink: "https://discord.gg/dcEvBGWtxw"
                     });
                     setGamesConfig(updated);
                   }}
@@ -1183,7 +1183,7 @@ export default function AdminDashboard() {
                       storageDetail: "NVMe SSD",
                       price: "₹100",
                       period: "/mo",
-                      orderLink: "#"
+                      orderLink: "https://discord.gg/dcEvBGWtxw"
                     });
                     setVpsConfig(updated);
                   }}
@@ -1336,7 +1336,7 @@ export default function AdminDashboard() {
                       features: ["DDoS Protected", "99.9% Uptime SLA", "IPMI Access"],
                       price: "₹5000",
                       period: "/mo",
-                      orderLink: "#"
+                      orderLink: "https://discord.gg/dcEvBGWtxw"
                     });
                     setDedicatedConfig(updated);
                   }}
@@ -1489,7 +1489,7 @@ export default function AdminDashboard() {
                       uptime: "99.9% Uptime",
                       price: "₹150",
                       period: "/mo",
-                      orderLink: "#"
+                      orderLink: "https://discord.gg/dcEvBGWtxw"
                     });
                     setDiscordConfig(updated);
                   }}
@@ -1642,7 +1642,7 @@ export default function AdminDashboard() {
                       uptime: "99.9% SLA",
                       price: "₹80",
                       period: "/mo",
-                      orderLink: "#"
+                      orderLink: "https://discord.gg/dcEvBGWtxw"
                     });
                     setWebhostingConfig(updated);
                   }}

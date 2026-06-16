@@ -30,7 +30,7 @@
         "uptime": "99.9% Uptime",
         "price": "£2.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/shared/starter"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "shared-basic",
@@ -46,7 +46,7 @@
         "uptime": "99.9% Uptime",
         "price": "£4.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/shared/basic"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "shared-standard",
@@ -62,7 +62,7 @@
         "uptime": "99.9% Uptime",
         "price": "£7.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/shared/standard"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "business": [
@@ -81,7 +81,7 @@
         "uptime": "99.9% Uptime",
         "price": "£14.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/business/pro"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "business-advanced",
@@ -97,7 +97,7 @@
         "uptime": "99.9% Uptime",
         "price": "£24.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/business/advanced"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "business-enterprise",
@@ -114,7 +114,7 @@
         "uptime": "99.9% Uptime",
         "price": "£49.99",
         "period": "/mo",
-        "orderLink": "https://example.com/order/webhosting/business/enterprise"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ]
   }

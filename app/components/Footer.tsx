@@ -15,8 +15,8 @@ export default function Footer() {
   const { t } = useLanguage()
 
   const quickLinks = [
-    { name: t('footer.clientArea'), href: "#" },
-    { name: t('footer.discord'), href: "#" },
+    { name: t('footer.clientArea'), href: branding.discordUrl },
+    { name: t('footer.discord'), href: branding.discordUrl },
     { name: t('footer.vpsHosting'), href: "/vps" },
     { name: t('footer.dedicatedServerHosting'), href: "/dedicated" },
     { name: t('footer.gameServerHosting'), href: "/games" },

@@ -123,6 +123,20 @@ export default function PricingSection() {
                 </ul>
 
                 <div className="relative">
+                  {plan.link.startsWith("http") ? (
+                    <a
+                      href={plan.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-between group ${plan.buttonStyle === "primary"
+                        ? "button-primary text-button-primary border border-transparent hover:bg-[var(--hover-gradient)] hover:text-[var(--icon-text-primary)] hover:border-[var(--border-secondary)]"
+                        : "card-primary dark:bg-transparent border border-secondary dark:border-secondary hover:bg-[var(--hover-gradient)] hover:text-[var(--icon-text-primary)] hover:border-[var(--border-secondary)] text-icon-text-primary"
+                        }`}
+                    >
+                      <span className="w-full orbitron-font text-center">{t(plan.buttonTextKey)}</span>
+                      <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                    </a>
+                  ) : (
                   <Link
                     href={plan.link}
                     className={`w-full py-3 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-between group ${plan.buttonStyle === "primary"
@@ -133,6 +147,7 @@ export default function PricingSection() {
                     <span className="w-full orbitron-font text-center">{t(plan.buttonTextKey)}</span>
                     <ChevronRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
+                  )}
                   {uiConfig.christmasTheme.enabled && (
                     <>
                       <Image

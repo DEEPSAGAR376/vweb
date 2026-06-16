@@ -129,7 +129,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-7/basic"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R7-02",
@@ -153,7 +153,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-7/standard"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R7-03",
@@ -177,7 +177,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-7/pro"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R7-04",
@@ -201,7 +201,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-7/enterprise"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "ryzen-9": [
@@ -227,7 +227,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-9/basic"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R9-02",
@@ -251,7 +251,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-9/standard"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R9-03",
@@ -275,7 +275,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-9/pro"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-R9-04",
@@ -299,7 +299,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/ryzen-9/enterprise"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ],
     "intel-xeon": [
@@ -325,7 +325,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/intel-xeon/basic"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-IX-02",
@@ -349,7 +349,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/intel-xeon/standard"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-IX-03",
@@ -373,7 +373,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/intel-xeon/pro"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       },
       {
         "id": "VDS-IX-04",
@@ -397,7 +397,7 @@
           "Free Backups",
           "Priority Support"
         ],
-        "orderLink": "https://example.com/order/vds/intel-xeon/enterprise"
+        "orderLink": "https://discord.gg/dcEvBGWtxw"
       }
     ]
   }
