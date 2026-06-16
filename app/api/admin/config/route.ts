@@ -17,6 +17,7 @@ const ALLOWED_SECTIONS = [
   "branding",
   "hero",
   "legal",
+  "pricing",
 ] as const;
 
 async function ensureDir() {

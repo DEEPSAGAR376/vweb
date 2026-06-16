@@ -4,17 +4,34 @@ import { motion } from "framer-motion"
 import { Check, ChevronRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { CurrencySelector, useCurrency } from "./ui/CurrencySelector"
 import pricingConfig from "../config/sections/pricing.json"
 import type { PricingConfig } from "../types/pricing"
 import { useLanguage } from '../contexts/LanguageContext';
 import uiConfig from "../config/sections/ui.json"
 
-const config = pricingConfig as PricingConfig
+const globalConfig = pricingConfig as PricingConfig
 
 export default function PricingSection() {
   const { t } = useLanguage();
   const { selectedCurrency, setSelectedCurrency, convertPrice } = useCurrency()
+  const [activeConfig, setActiveConfig] = useState<PricingConfig>(globalConfig)
+  const config = activeConfig
+
+  useEffect(() => {
+    fetch("/api/admin/config?section=pricing")
+      .then((res) => {
+        if (res.ok) return res.json();
+        throw new Error();
+      })
+      .then((data) => {
+        if (data && data.section && data.section.plans) {
+          setActiveConfig(data);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <div className="bg-gray-50 dark:bg-[#0a0b0f] py-32 px-4 sm:px-6 lg:px-8 relative">

@@ -18,7 +18,8 @@ import {
   Trash2,
   Cpu,
   Globe,
-  Palette
+  Palette,
+  Tags
 } from "lucide-react";
 import Image from "next/image";
 
@@ -40,6 +41,7 @@ export default function AdminDashboard() {
   const [brandingConfig, setBrandingConfig] = useState<any>(null);
   const [heroConfig, setHeroConfig] = useState<any>(null);
   const [legalConfig, setLegalConfig] = useState<any>(null);
+  const [pricingConfig, setPricingConfig] = useState<any>(null);
 
   // Raw JSON edit modes
   const [rawJson, setRawJson] = useState("");
@@ -141,12 +143,13 @@ export default function AdminDashboard() {
         return res.json();
       };
 
-      const [nav, games, vps, dedi, discord, webhost, branding, hero, legal] = await Promise.all([
+      const [nav, games, vps, dedi, discord, pricing, webhost, branding, hero, legal] = await Promise.all([
         fetchConfig("navigation"),
         fetchConfig("games"),
         fetchConfig("vps"),
         fetchConfig("dedicated"),
         fetchConfig("discord"),
+        fetchConfig("pricing"),
         fetchConfig("webhosting"),
         fetchConfig("branding"),
         fetchConfig("hero"),
@@ -158,6 +161,7 @@ export default function AdminDashboard() {
       setVpsConfig(vps);
       setDedicatedConfig(dedi);
       setDiscordConfig(discord);
+      setPricingConfig(pricing);
       setWebhostingConfig(webhost);
       setBrandingConfig(branding);
       setHeroConfig(hero);
@@ -342,6 +346,7 @@ export default function AdminDashboard() {
       case "branding": data = brandingConfig; break;
       case "hero": data = heroConfig; break;
       case "legal": data = legalConfig; break;
+      case "pricing": data = pricingConfig; break;
     }
     if (data) {
       setRawJson(JSON.stringify(data, null, 2));
@@ -475,6 +480,7 @@ export default function AdminDashboard() {
           {[
             { id: "branding", label: "Site Branding", icon: Palette },
             { id: "notifications", label: "Announcement Banner", icon: Bell },
+            { id: "pricing", label: "Homepage Pricing", icon: Tags },
             { id: "games", label: "Game Pricing", icon: Gamepad2 },
             { id: "vps", label: "VPS Plans", icon: Cloud },
             { id: "dedicated", label: "Dedicated Servers", icon: Server },
@@ -777,6 +783,81 @@ export default function AdminDashboard() {
                 >
                   <Save className="w-5 h-5" />
                   <span>Save Banner Configuration</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: HOMEPAGE PRICING */}
+          {activeTab === "pricing" && pricingConfig && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-xl font-bold mb-2">Simple Pricing Plans</h2>
+                <p className="text-gray-400 text-sm">
+                  Edit the &quot;Starting at&quot; prices shown on the homepage pricing cards. Use a plain number (e.g. 9.99) or include a currency symbol (e.g. ₹75).
+                </p>
+              </div>
+
+              <div className="border-t border-gray-800 pt-6 space-y-4">
+                {pricingConfig.section.plans.map((plan: any, index: number) => {
+                  const planLabels: Record<string, string> = {
+                    "pricingPlans.gameServers.title": "Game Servers",
+                    "pricingPlans.vpsHosting.title": "VPS Hosting",
+                    "pricingPlans.dedicatedServers.title": "Dedicated Servers",
+                    "pricingPlans.webHosting.title": "Web Hosting",
+                    "discord.title": "Discord Bot Hosting",
+                  };
+                  const planName = planLabels[plan.titleKey] || plan.titleKey;
+
+                  return (
+                    <div
+                      key={index}
+                      className="bg-[#131626] border border-gray-800 rounded-lg p-4 grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] gap-4 items-center"
+                    >
+                      <div className="relative w-20 h-14 rounded overflow-hidden flex-shrink-0">
+                        <Image
+                          src={plan.image || "/placeholder.svg"}
+                          alt={planName}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      <div>
+                        <h3 className="font-bold text-white">{planName}</h3>
+                        <p className="text-xs text-gray-500 mt-0.5">Link: {plan.link}</p>
+                      </div>
+
+                      <div className="sm:w-48">
+                        <label className="block text-xs text-gray-500 font-bold uppercase mb-1">
+                          Starting Price / month
+                        </label>
+                        <input
+                          type="text"
+                          value={plan.basePrice}
+                          onChange={(e) => {
+                            const updated = { ...pricingConfig };
+                            const value = e.target.value.trim();
+                            updated.section.plans[index].basePrice =
+                              /^\d+(\.\d+)?$/.test(value) ? parseFloat(value) : value;
+                            setPricingConfig(updated);
+                          }}
+                          placeholder="9.99 or ₹75"
+                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-3 py-2 text-white text-sm focus:outline-none focus:border-blue-500"
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex justify-end border-t border-gray-800 pt-6">
+                <button
+                  onClick={() => saveConfig("pricing", pricingConfig)}
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg flex items-center gap-2"
+                >
+                  <Save className="w-5 h-5" />
+                  <span>Save Homepage Pricing</span>
                 </button>
               </div>
             </div>
@@ -1594,7 +1675,7 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="flex flex-wrap gap-2">
-                  {["navigation", "branding", "hero", "legal", "games", "vps", "dedicated", "discord", "webhosting"].map((sec) => (
+                  {["navigation", "branding", "hero", "legal", "pricing", "games", "vps", "dedicated", "discord", "webhosting"].map((sec) => (
                     <button
                       key={sec}
                       onClick={() => loadRawJsonSection(sec)}
@@ -1649,7 +1730,8 @@ export default function AdminDashboard() {
                           const parsed = JSON.parse(rawJson);
                           // Guess section
                           let guessedSec = "games";
-                          if (parsed.mainNavigation) guessedSec = "navigation";
+                          if (parsed.section && parsed.section.plans) guessedSec = "pricing";
+                          else if (parsed.mainNavigation) guessedSec = "navigation";
                           else if (parsed.plans && parsed.plans["intel-v4"] && parsed.plans["intel-v4"][0]?.cpuDetail === "Intel Xeon v4") guessedSec = "vps";
                           else if (parsed.plans && parsed.plans["intel-platinum"] && parsed.plans["intel-platinum"][0]?.cpuDetail === "Processor") guessedSec = "dedicated";
                           else if (parsed.plans && parsed.plans["nodejs"] && parsed.plans["nodejs"][0]?.uptime) guessedSec = "discord";
