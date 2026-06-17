@@ -67,8 +67,8 @@
     "show": true,
     "text": "Limited Time Offer: Save 10% on Game Servers",
     "couponCode": "RIMHOST IS THE BEST!",
-    "useThemeColor": true,
-    "backgroundColor": "bg-blue-400",
+    "useThemeColor": false,
+    "backgroundColor": "bg-green-500",
     "fallbackColor": "bg-blue-400"
   }
 }

@@ -1,13 +1,13 @@
 {
-  "brandName": "Rim",
-  "brandAccent": "Host",
+  "brandName": "RimHost.",
+  "brandAccent": "Cloud",
   "fullName": "Rim Host",
   "tagline": "Game Hosting, VPS & Dedicated Servers",
   "description": "Premium game hosting, VPS & dedicated servers by Rim Host. High-performance infrastructure with 99.9% uptime, DDoS protection & 24/7 support.",
   "logo": "/banners/web.webp",
-  "websiteUrl": "https://rimhost.com",
-  "supportEmail": "support@rimhost.com",
-  "legalEmail": "legal@rimhost.com",
-  "gamePanelUrl": "panel.rimhost.com",
+  "websiteUrl": "https://vweb-green.vercel.app",
+  "supportEmail": "support@rimhost.cloud",
+  "legalEmail": "legal@rimhost.cloud",
+  "gamePanelUrl": "gp.rimhost.cloud",
   "discordUrl": "https://discord.gg/dcEvBGWtxw"
 }
