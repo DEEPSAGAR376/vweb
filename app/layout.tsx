@@ -8,11 +8,20 @@ import CookieConsent from "./components/CookieConsent";
 import ThemeSwitcher from "./components/ThemeSwitcher";
 import ChristmasSnowfall from "./components/ChristmasSnowfall";
 import { Analytics } from "@vercel/analytics/next"
+import fs from "fs/promises";
+import path from "path";
 import brandingConfig from "./config/sections/branding.json";
 import type { BrandingConfig } from "./types/branding";
 
-const branding = brandingConfig as BrandingConfig;
-const siteUrl = branding.websiteUrl.replace(/\/$/, "");
+async function getBrandingConfig(): Promise<BrandingConfig> {
+  try {
+    const filePath = path.join(process.cwd(), "app", "config", "sections", "branding.json");
+    const data = await fs.readFile(filePath, "utf-8");
+    return JSON.parse(data);
+  } catch (error) {
+    return brandingConfig as BrandingConfig;
+  }
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -54,106 +63,116 @@ export const viewport: Viewport = {
   ],
 }
 
-export const metadata: Metadata = {
-  title: {
-    default: `${branding.fullName} - ${branding.tagline}`,
-    template: `%s | ${branding.fullName}`
-  },
-  description: branding.description,
-  keywords: [
-    "game hosting",
-    "minecraft hosting",
-    "discord bot hosting",
-    "VPS hosting",
-    "dedicated servers",
-    "cloud servers",
-    "gaming servers",
-    branding.fullName,
-    "low latency hosting",
-    "DDoS protection",
-    "24/7 support",
-    "custom server hosting",
-    "modded game hosting",
-    "server rental"
-  ],
-  authors: [{ name: branding.fullName }],
-  creator: branding.fullName,
-  publisher: branding.fullName,
-  category: "Game Hosting & Server Solutions",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteUrl,
-    siteName: `${branding.fullName} - Game Hosting & Servers`,
-    title: `${branding.fullName} - ${branding.tagline}`,
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const branding = await getBrandingConfig();
+  const siteUrl = branding.websiteUrl.replace(/\/$/, "");
+
+  return {
+    title: {
+      default: `${branding.fullName} - ${branding.tagline}`,
+      template: `%s | ${branding.fullName}`
+    },
     description: branding.description,
-    images: [
-      {
-        url: `${siteUrl}/meta/Banner.png`,
-        width: 1200,
-        height: 630,
-        alt: `${branding.fullName} - ${branding.tagline}`,
-        type: "image/png"
-      }
-    ]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${branding.fullName} - ${branding.tagline}`,
-    description: branding.description,
-    images: [`${siteUrl}/meta/Banner.png`]
-  },
-  robots: {
-    index: true,
-    follow: true,
-    noarchive: false,
-    nosnippet: false,
-    noimageindex: false,
-    nocache: false,
-    googleBot: {
+    keywords: [
+      "game hosting",
+      "minecraft hosting",
+      "discord bot hosting",
+      "VPS hosting",
+      "dedicated servers",
+      "cloud servers",
+      "gaming servers",
+      branding.fullName,
+      "low latency hosting",
+      "DDoS protection",
+      "24/7 support",
+      "custom server hosting",
+      "modded game hosting",
+      "server rental"
+    ],
+    authors: [{ name: branding.fullName }],
+    creator: branding.fullName,
+    publisher: branding.fullName,
+    category: "Game Hosting & Server Solutions",
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: siteUrl,
+      siteName: `${branding.fullName} - Game Hosting & Servers`,
+      title: `${branding.fullName} - ${branding.tagline}`,
+      description: branding.description,
+      images: [
+        {
+          url: `${siteUrl}/meta/Banner.png`,
+          width: 1200,
+          height: 630,
+          alt: `${branding.fullName} - ${branding.tagline}`,
+          type: "image/png"
+        }
+      ]
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${branding.fullName} - ${branding.tagline}`,
+      description: branding.description,
+      images: [`${siteUrl}/meta/Banner.png`]
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      noarchive: false,
+      nosnippet: false,
+      noimageindex: false,
+      nocache: false,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
 
-  verification: {
-    google: "vzsKvhNUgAPlCbf1annB0Sl-bttSFos87mhOyQSU2aY", 
-  },
+    verification: {
+      google: "vzsKvhNUgAPlCbf1annB0Sl-bttSFos87mhOyQSU2aY", 
+    },
 
-  applicationName: branding.fullName,
-  referrer: "origin-when-cross-origin",
+    applicationName: branding.fullName,
+    referrer: "origin-when-cross-origin",
 
-  manifest: "/manifest.json",
-  icons: {
-    icon: [
-      { url: "/meta/Logo.png", sizes: "32x32", type: "image/png" },
-      { url: "/meta/Logo.png", sizes: "16x16", type: "image/png" }
-    ],
-    apple: [
-      { url: "/meta/Logo.png", sizes: "180x180", type: "image/png" }
-    ],
-    shortcut: "/meta/Logo.png"
-  },
+    manifest: "/manifest.json",
+    icons: {
+      icon: [
+        { url: "/meta/Logo.png", sizes: "32x32", type: "image/png" },
+        { url: "/meta/Logo.png", sizes: "16x16", type: "image/png" }
+      ],
+      apple: [
+        { url: "/meta/Logo.png", sizes: "180x180", type: "image/png" }
+      ],
+      shortcut: "/meta/Logo.png"
+    },
 
-  alternates: {
-    canonical: siteUrl
-  },
-  other: {
-    "msapplication-TileColor": "#1e40af",
-    "msapplication-config": "/browserconfig.xml",
-    "terms-of-service": `${siteUrl}/terms-of-services`,
-    "privacy-policy": `${siteUrl}/privacy-policy`
-  }
-};
-// yo yo, wassup, ma name is big A aka the big ANTHONYYYYYYYYYYYYYYYYYY. like my work so far? rate it a 5 star on BBB pweaseeeeeeeeee
-export default function RootLayout({
+    alternates: {
+      canonical: siteUrl
+    },
+    other: {
+      "msapplication-TileColor": "#1e40af",
+      "msapplication-config": "/browserconfig.xml",
+      "terms-of-service": `${siteUrl}/terms-of-services`,
+      "privacy-policy": `${siteUrl}/privacy-policy`
+    }
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const branding = await getBrandingConfig();
+  const siteUrl = branding.websiteUrl.replace(/\/$/, "");
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
