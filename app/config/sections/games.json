@@ -115,7 +115,7 @@
       "icon": "/icons/minecraft-icon.webp",
       "banner": "/banners/minecraft-banners.webp",
       "featured": true,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#4CAF50",
       "plans": {
         "intel-v4": [
@@ -344,7 +344,7 @@
       "icon": "/icons/gmod-icon.webp",
       "banner": "/banners/gmod-banner.webp",
       "featured": false,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#FF6B35",
       "plans": {
         "intel-v4": [
@@ -724,7 +724,7 @@
       "icon": "/icons/cs2-icon.webp",
       "banner": "/banners/cs2-banner.webp",
       "featured": true,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#F39C12",
       "plans": {
         "intel-v4": [
@@ -1104,7 +1104,7 @@
       "icon": "/icons/rust-icon.webp",
       "banner": "/banners/rust-banner-2.webp",
       "featured": false,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#CE422B",
       "plans": {
         "intel-v4": [
@@ -1484,7 +1484,7 @@
       "icon": "/icons/ark-icon.webp",
       "banner": "/banners/ark-banners.webp",
       "featured": false,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#8B4513",
       "plans": {
         "intel-v4": [
@@ -1864,7 +1864,7 @@
       "icon": "/icons/valheim-icon.webp",
       "banner": "/banners/valheim-banner.webp",
       "featured": true,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#4A90E2",
       "plans": {
         "intel-v4": [
@@ -2244,7 +2244,7 @@
       "icon": "/icons/nodejs.png",
       "banner": "/banners/node.webp",
       "featured": true,
-      "startingAt": "₹56/mo",
+      "startingAt": "₹120/mo",
       "primaryColor": "#339933",
       "plans": {
         "intel-v4": [

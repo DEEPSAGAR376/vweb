@@ -213,6 +213,10 @@ export default function AdminDashboard() {
       }
       if (res.ok && result.success) {
         showStatus("success", `${section} configuration updated successfully!`);
+        // Automatically sync prices when pricing is updated
+        if (section === "pricing") {
+          await syncPrices(token);
+        }
         loadAllConfigs(token);
       } else {
         showStatus("error", result.error || `Failed to save ${section}`);
@@ -221,6 +225,32 @@ export default function AdminDashboard() {
       showStatus("error", `Connection error when saving ${section}`);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const syncPrices = async (token: string) => {
+    try {
+      const res = await fetch(`/api/admin/sync-prices`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await res.json();
+      if (res.ok && result.success) {
+        // Count total prices updated
+        let totalUpdated = 0;
+        Object.entries(result.results || {}).forEach((entry: any) => {
+          const details = entry[1];
+          if (details.updated) totalUpdated += details.count;
+        });
+        showStatus("success", `Prices synced! Updated ${totalUpdated} prices across all services.`);
+      } else {
+        console.error("Sync error:", result);
+      }
+    } catch (error) {
+      console.error("Sync failed:", error);
     }
   };
 
@@ -851,7 +881,18 @@ export default function AdminDashboard() {
                 })}
               </div>
 
-              <div className="flex justify-end border-t border-gray-800 pt-6">
+              <div className="flex justify-end gap-3 border-t border-gray-800 pt-6">
+                <button
+                  onClick={() => {
+                    const token = sessionStorage.getItem("admin_token") || "";
+                    syncPrices(token);
+                  }}
+                  disabled={loading}
+                  className="px-6 py-2.5 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 text-white font-bold rounded-lg flex items-center gap-2"
+                >
+                  <RefreshCw className="w-5 h-5" />
+                  <span>Sync Prices to Services</span>
+                </button>
                 <button
                   onClick={() => saveConfig("pricing", pricingConfig)}
                   className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg flex items-center gap-2"
