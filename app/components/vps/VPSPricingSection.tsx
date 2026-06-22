@@ -273,7 +273,7 @@ export default function VPSPricingSection() {
                 <div className="flex flex-col sm:flex-row items-center gap-4">
                   <div className="text-center sm:text-right">
                     <div className="text-lg font-bold icon-text-primary">
-                      {convertPrice(plan.price)}
+                      {convertPrice(typeof plan.price === 'string' ? (plan.price.includes('₹') ? plan.price : `₹${plan.price}`) : `₹${plan.price}`)}
                       <span className="text-sm text-gray-500 dark:text-gray-400">{plan.period}</span>
                     </div>
                   </div>

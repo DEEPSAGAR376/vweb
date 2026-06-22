@@ -126,7 +126,7 @@
             "ram": "6 GB",
             "cpu": "2 vCore",
             "storage": "12GB SSD",
-            "price": "290",
+            "price": "₹290",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -136,7 +136,7 @@
             "ram": "8 GB",
             "cpu": "2 vCores",
             "storage": "16GB SSD",
-            "price": "299",
+            "price": "₹299",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -146,7 +146,7 @@
             "ram": "12 GB",
             "cpu": "4 vCores",
             "storage": "24GB SSD",
-            "price": "459",
+            "price": "₹459",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -156,7 +156,7 @@
             "ram": "16 GB",
             "cpu": "6 vCores",
             "storage": "32GB SSD",
-            "price": "637",
+            "price": "₹637",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -166,7 +166,7 @@
             "ram": "24 GB",
             "cpu": "6 vCores",
             "storage": "48GB SSD",
-            "price": "955",
+            "price": "₹955",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -176,7 +176,7 @@
             "ram": "32 GB",
             "cpu": "8 vCores",
             "storage": "64GB SSD",
-            "price": "1274",
+            "price": "₹1274",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           }
         ],
@@ -189,7 +189,7 @@
             "ram": "6 GB",
             "cpu": "2 Cores",
             "storage": "12GB SSD",
-            "price": "295",
+            "price": "₹295",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -199,7 +199,7 @@
             "ram": "8 GB",
             "cpu": "2 Cores",
             "storage": "16GB SSD",
-            "price": "425",
+            "price": "₹425",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -209,7 +209,7 @@
             "ram": "12 GB",
             "cpu": "4 Cores",
             "storage": "24GB SSD",
-            "price": "686",
+            "price": "₹686",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -219,7 +219,7 @@
             "ram": "16 GB",
             "cpu": "6 Cores",
             "storage": "32GB SSD",
-            "price": "852",
+            "price": "₹852",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -229,7 +229,7 @@
             "ram": "24 GB",
             "cpu": "6 Cores",
             "storage": "52GB SSD",
-            "price": "1182",
+            "price": "₹1182",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           },
           {
@@ -239,7 +239,7 @@
             "ram": "32 GB",
             "cpu": "8 Cores",
             "storage": "64GB SSD",
-            "price": "1512",
+            "price": "₹1512",
             "orderLink": "https://discord.gg/dcEvBGWtxw"
           }
         ],

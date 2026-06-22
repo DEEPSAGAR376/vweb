@@ -981,17 +981,21 @@ export default function AdminDashboard() {
 
                       <div>
                         <span className="block text-xs text-gray-500 font-bold uppercase">Price</span>
-                        <input
-                          type="text"
-                          value={plan.price}
-                          onChange={(e) => {
-                            const updated = { ...gamesConfig };
-                            const targetGame = updated.games.find((g: any) => g.id === selectedGameId);
-                            targetGame.plans[selectedGameCpu][index].price = e.target.value;
-                            setGamesConfig(updated);
-                          }}
-                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm mt-1 focus:outline-none"
-                        />
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-gray-400">₹</span>
+                          <input
+                            type="text"
+                            value={plan.price.replace(/[₹]/g, '')}
+                            onChange={(e) => {
+                              const updated = { ...gamesConfig };
+                              const targetGame = updated.games.find((g: any) => g.id === selectedGameId);
+                              const numValue = e.target.value.replace(/[₹]/g, '');
+                              targetGame.plans[selectedGameCpu][index].price = `₹${numValue}`;
+                              setGamesConfig(updated);
+                            }}
+                            className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm focus:outline-none"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex gap-2">
@@ -1164,16 +1168,20 @@ export default function AdminDashboard() {
 
                       <div>
                         <span className="block text-xs text-gray-500 font-bold uppercase">Price</span>
-                        <input
-                          type="text"
-                          value={plan.price}
-                          onChange={(e) => {
-                            const updated = { ...vpsConfig };
-                            updated.plans[selectedVpsCpu][index].price = e.target.value;
-                            setVpsConfig(updated);
-                          }}
-                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm mt-1 focus:outline-none"
-                        />
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-gray-400">₹</span>
+                          <input
+                            type="text"
+                            value={plan.price.replace(/[₹]/g, '')}
+                            onChange={(e) => {
+                              const updated = { ...vpsConfig };
+                              const numValue = e.target.value.replace(/[₹]/g, '');
+                              updated.plans[selectedVpsCpu][index].price = `₹${numValue}`;
+                              setVpsConfig(updated);
+                            }}
+                            className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm focus:outline-none"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex gap-2">
@@ -1315,16 +1323,20 @@ export default function AdminDashboard() {
 
                       <div>
                         <span className="block text-xs text-gray-500 font-bold uppercase">Price</span>
-                        <input
-                          type="text"
-                          value={plan.price}
-                          onChange={(e) => {
-                            const updated = { ...dedicatedConfig };
-                            updated.plans[selectedDediCpu][index].price = e.target.value;
-                            setDedicatedConfig(updated);
-                          }}
-                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm mt-1 focus:outline-none"
-                        />
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-gray-400">₹</span>
+                          <input
+                            type="text"
+                            value={plan.price.replace(/[₹]/g, '')}
+                            onChange={(e) => {
+                              const updated = { ...dedicatedConfig };
+                              const numValue = e.target.value.replace(/[₹]/g, '');
+                              updated.plans[selectedDediCpu][index].price = `₹${numValue}`;
+                              setDedicatedConfig(updated);
+                            }}
+                            className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm focus:outline-none"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex gap-2">
@@ -1468,16 +1480,20 @@ export default function AdminDashboard() {
 
                       <div>
                         <span className="block text-xs text-gray-500 font-bold uppercase">Price</span>
-                        <input
-                          type="text"
-                          value={plan.price}
-                          onChange={(e) => {
-                            const updated = { ...discordConfig };
-                            updated.plans[selectedDiscordType][index].price = e.target.value;
-                            setDiscordConfig(updated);
-                          }}
-                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm mt-1 focus:outline-none"
-                        />
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-gray-400">₹</span>
+                          <input
+                            type="text"
+                            value={plan.price.replace(/[₹]/g, '')}
+                            onChange={(e) => {
+                              const updated = { ...discordConfig };
+                              const numValue = e.target.value.replace(/[₹]/g, '');
+                              updated.plans[selectedDiscordType][index].price = `₹${numValue}`;
+                              setDiscordConfig(updated);
+                            }}
+                            className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm focus:outline-none"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex gap-2">
@@ -1621,16 +1637,20 @@ export default function AdminDashboard() {
 
                       <div>
                         <span className="block text-xs text-gray-500 font-bold uppercase">Price</span>
-                        <input
-                          type="text"
-                          value={plan.price}
-                          onChange={(e) => {
-                            const updated = { ...webhostingConfig };
-                            updated.plans[selectedWebhostType][index].price = e.target.value;
-                            setWebhostingConfig(updated);
-                          }}
-                          className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm mt-1 focus:outline-none"
-                        />
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-gray-400">₹</span>
+                          <input
+                            type="text"
+                            value={plan.price.replace(/[₹]/g, '')}
+                            onChange={(e) => {
+                              const updated = { ...webhostingConfig };
+                              const numValue = e.target.value.replace(/[₹]/g, '');
+                              updated.plans[selectedWebhostType][index].price = `₹${numValue}`;
+                              setWebhostingConfig(updated);
+                            }}
+                            className="w-full bg-[#1c1f36] border border-gray-700 rounded px-2.5 py-1 text-white text-sm focus:outline-none"
+                          />
+                        </div>
                       </div>
 
                       <div className="flex gap-2">

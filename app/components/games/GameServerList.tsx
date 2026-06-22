@@ -352,7 +352,7 @@ export default function GameServerList() {
                 </div>
 
                 <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-3xl font-bold text-[var(--game-color)]">{convertPrice(typeof plan.price === 'string' ? plan.price : `$${plan.price}`)}</span>
+                  <span className="text-3xl font-bold text-[var(--game-color)]">{convertPrice(typeof plan.price === 'string' ? (plan.price.includes('₹') ? plan.price : `₹${plan.price}`) : `₹${plan.price}`)}</span>
                   <span className="text-gray-500 dark:text-gray-400">/mo</span>
                 </div>
 
